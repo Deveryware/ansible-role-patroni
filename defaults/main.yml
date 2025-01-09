@@ -61,6 +61,7 @@ patroni_dcs: etcd
 patroni_dcs_exists: true
 
 # https://patroni.readthedocs.io/en/latest/SETTINGS.html#etcd
+patroni_etcd_use_v3: true
 patroni_etcd_host: ""
 patroni_etcd_hosts: 127.0.0.1:2379
 patroni_etcd_use_proxies: false
