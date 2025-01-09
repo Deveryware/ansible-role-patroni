@@ -1,7 +1,7 @@
 ---
-postgresql_apt_key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
-postgresql_apt_repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
-postgresql_apt_filename: "apt_postgresql_org_pub_repos_apt"
+postgresql_apt:
+  uris: https://apt.postgresql.org/pub/repos/apt/
+  signed_by: https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
 
 postgresql_yum_repo_url: "https://download.postgresql.org/pub/repos/yum/reporpms/{{ 'F' if ansible_distribution|lower == 'fedora' else 'EL' }}-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/{{ postgresql_yum_repo_pkg_name }}"
 postgresql_yum_repo_pkg_name: pgdg-{{ 'fedora' if ansible_distribution|lower == 'fedora' else 'redhat' }}-repo-latest.noarch.rpm
