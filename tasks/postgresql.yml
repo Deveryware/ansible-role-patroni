@@ -26,6 +26,7 @@
 - name: Configure postgresql repository
   package:
     name: "{{ postgresql_yum_repo_url }}"
+    disable_gpg_check: true
   when: ansible_os_family == "RedHat"
 
 - name: Install postgresql packages
