@@ -9,6 +9,3 @@ __patroni_postgresql_packages:
   - { name: "postgresql{{ patroni_postgresql_version|replace('.','') }}-server{{ postgresql_yum_repo_pkg_version }}",  state: "present" }
   - { name: "postgresql{{ patroni_postgresql_version|replace('.','') }}-contrib{{ postgresql_yum_repo_pkg_version }}", state: "present" }
   - { name: "postgresql{{ patroni_postgresql_version|replace('.','') }}-devel{{ postgresql_yum_repo_pkg_version }}",   state: "present" }
-
-__patroni_haproxy_packages:
-  - { name: "haproxy", state: "present" }

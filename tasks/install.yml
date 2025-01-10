@@ -10,3 +10,8 @@
   ansible.builtin.package:
     name: "{{ patroni_pkgs[ansible_os_family] }}"
     update_cache: yes
+
+- name: Install haproxy
+  ansible.builtin.package:
+    name: haproxy
+  when: patroni_install_haproxy

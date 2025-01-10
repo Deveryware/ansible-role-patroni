@@ -9,6 +9,3 @@ __patroni_postgresql_packages:
   - { name: "postgresql-client-{{ patroni_postgresql_version }}",     state: "present" }
   - { name: "postgresql-contrib-{{ patroni_postgresql_version }}",    state: "present" }
   - { name: "postgresql-server-dev-{{ patroni_postgresql_version }}", state: "present" }
-
-__patroni_haproxy_packages:
-  - { name: "haproxy", state: "present" }
