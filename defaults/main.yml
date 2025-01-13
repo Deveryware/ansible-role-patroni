@@ -1,6 +1,7 @@
 ---
 postgresql_apt:
   uris: https://apt.postgresql.org/pub/repos/apt/
+  suites: "{{ ansible_distribution_release }}-pgdg"
   signed_by: https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
 
 postgresql_yum_repo_url: "https://download.postgresql.org/pub/repos/yum/reporpms/{{ 'F' if ansible_distribution|lower == 'fedora' else 'EL' }}-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/{{ postgresql_yum_repo_pkg_name }}"
