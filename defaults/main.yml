@@ -1,12 +1,27 @@
 ---
+postgresql_apt:
+  uris: https://apt.postgresql.org/pub/repos/apt/
+  signed_by: https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
+
+postgresql_yum_repo_url: "https://download.postgresql.org/pub/repos/yum/reporpms/{{ 'F' if ansible_distribution|lower == 'fedora' else 'EL' }}-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/{{ postgresql_yum_repo_pkg_name }}"
+postgresql_yum_repo_pkg_name: pgdg-{{ 'fedora' if ansible_distribution|lower == 'fedora' else 'redhat' }}-repo-latest.noarch.rpm
+postgresql_yum_repo_pkg_version: "{{ '' if ansible_distribution|lower == 'fedora' else '-11.5-1PGDG.rhel7' }}"
+
+patroni_pkgs:
+  Debian:
+  - patroni
+  RedHat:
+  - patroni
+  - "patroni-{{ patroni_dcs }}"
 
 patroni_postgresql_version: 11
 patroni_postgresql_exists: false
-patroni_install_from_pip: true
 patroni_install_haproxy: false
 
 patroni_config_dir: /etc/patroni
-patroni_config_file: "{{ inventory_hostname }}.yml"
+patroni_config_file:
+  Debian: config.yml
+  RedHat: patroni.yml
 patroni_system_user: postgres
 patroni_system_group: postgres
 
@@ -14,10 +29,6 @@ patroni_system_group: postgres
 patroni_backup_on_copy: true
 
 patroni_exec_start_pre: "/bin/mkdir -m 2750 -p /var/run/postgresql/{{ patroni_postgresql_version }}-main.pg_stat_tmp"
-
-patroni_pip_packages:
-  - { name: "setuptools",                 state: "latest",  umask: "0022", executable: "pip3" }
-  - { name: "patroni[{{ patroni_dcs }}]", state: "present", umask: "0022", executable: "pip3" }
 
 patroni_replication_username: replicator
 patroni_replication_password: repuserpasswd

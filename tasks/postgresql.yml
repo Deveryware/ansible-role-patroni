@@ -1,15 +1,23 @@
 ---
-
 - block:
-    - name: Configure postgresql repository key
-      apt_key:
-        url: "{{ postgresql_apt_key_url }}"
-      when: postgresql_apt_key_url != ""
+    - name: ansible.builtin.deb822_repository requirements
+      ansible.builtin.apt:
+        name: python3-debian
 
     - name: Configure postgresql repository
-      apt_repository:
-        repo: "{{ postgresql_apt_repo }}"
-        filename: "{{ postgresql_apt_filename }}"
+      ansible.builtin.deb822_repository:
+        name: postgresql
+        types: deb
+        uris: "{{ postgresql_apt.uris }}"
+        suites: "{{ ansible_distribution_release }}-pgdg"
+        components: main
+        signed_by: "{{ postgresql_apt.signed_by }}"
+      register: repo
+
+    - name: Apt update
+      ansible.builtin.apt:
+        update_cache: yes
+      when: repo.changed
 
     - name: Ensure postgresql database-cluster manager package
       package:
@@ -26,6 +34,7 @@
 - name: Configure postgresql repository
   package:
     name: "{{ postgresql_yum_repo_url }}"
+    disable_gpg_check: true
   when: ansible_os_family == "RedHat"
 
 - name: Install postgresql packages
