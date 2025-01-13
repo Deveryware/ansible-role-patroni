@@ -9,7 +9,7 @@
         name: postgresql
         types: deb
         uris: "{{ postgresql_apt.uris }}"
-        suites: "{{ ansible_distribution_release }}-pgdg"
+        suites: "{{ postgresql_apt.suites }}"
         components: main
         signed_by: "{{ postgresql_apt.signed_by }}"
       register: repo
